@@ -8,10 +8,10 @@ namespace EVM_updated
 {
     class Vote
     {
-        public Vote()
+        string CNIC;
+        public Vote(string cnic)
         {
-            Voter vote = new Voter("","");
-            string cnic= vote.CNIC;
+            CNIC = cnic;
 
             Candidate Csign = new Candidate("", "");
             string sign = Csign.Sign;

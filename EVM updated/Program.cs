@@ -39,6 +39,7 @@ namespace EVM_updated
                         Console.Clear();
                         booth.VoterMenu();
                         string nestedKey = string.Empty;
+
                         nestedKey = Console.ReadLine();
                         switch (nestedKey)
                         {
