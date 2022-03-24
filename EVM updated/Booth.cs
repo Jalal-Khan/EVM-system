@@ -8,9 +8,15 @@ namespace EVM_updated
 {
     class Booth
     {
+        private static int count;
+        public int Id{get; private set;}
         List<Candidate> CandidateList = new List<Candidate>();
         List<Voter> VotersList = new List<Voter>();
         List<Vote> VotesList = new List<Vote>();
+
+public Booth(){
+    this.Id=++_Count;
+}
 
         public void AddVoter()
         {

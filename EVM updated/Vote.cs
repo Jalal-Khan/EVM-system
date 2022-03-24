@@ -8,13 +8,11 @@ namespace EVM_updated
 {
     class Vote
     {
+        private static int _Count;
+        public int Id{get; private set;}
         public Vote()
         {
-            Voter vote = new Voter("","");
-            string cnic= vote.CNIC;
-
-            Candidate Csign = new Candidate("", "");
-            string sign = Csign.Sign;
+            this.Id=++_Count;
                
         }
     }
