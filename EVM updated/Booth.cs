@@ -17,9 +17,18 @@ namespace EVM_updated
         public Booth(){
             this.Id=++_Count;
         }
+        public void menu()
+        {
+            Console.WriteLine("***********VOTING APPLICATION*******************");
+            Console.WriteLine("PRESS 1 FOR \"ADD CANDIDATE\"");
+            Console.WriteLine("PRESS 2 FOR \"ADD VOTER\"");
+            Console.WriteLine("PRESS 3 FOR \"CAST VOTE\"");
 
+            Console.WriteLine("PRESS 0 FOR \"EXIT\"");
+        }
         public void AddVoter()
         {
+            Console.WriteLine("***********ADD VOTER***************");
             Console.Write("Name : ");
             var name = Console.ReadLine();
             Console.Write("CNIC : ");
@@ -32,6 +41,7 @@ namespace EVM_updated
 
         public void AddCandidate()
         {
+            Console.WriteLine("***********ADD CANDIDATE***************");
             Console.Write("Name : ");
             var name = Console.ReadLine();
             Console.Write("Sign : ");
@@ -45,6 +55,7 @@ namespace EVM_updated
  
 
         private DateTime StartDatetime { get; set; }
+
         public void Start()
         {
             this.StartDatetime = DateTime.Now;
@@ -59,6 +70,7 @@ namespace EVM_updated
 
         public void VoteCast()
         {
+            Console.WriteLine("***********VOTE CASTING PROCESS***************");
             Console.WriteLine("Enter your CNIC");
             var cnic=Console.ReadLine();
             // check if voter is registered in this booth or not
@@ -73,11 +85,15 @@ namespace EVM_updated
                 Console.WriteLine("You have already casted vote. You cannot cast another vote.");
                 return;
             }
-
-            Console.WriteLine("Enter your Candidate Sign");
+            //Console.WriteLine("***********VOTE CASTING PROCESS***************");
+            for (int i = 0; i < CandidateList.Count; i++)
+            {
+                Console.WriteLine($"Candidate {CandidateList[i].Name} have \"{CandidateList[i].Sign}\" sign");
+            }
+            Console.WriteLine("WRITE YOUR CANDIDATE SIGN");
             var sign=Console.ReadLine();
             Candidate candidate=_FindCandidateBySign(sign);
-            while(voter==null){
+            while(candidate == null){
                 Console.WriteLine("Invalid Sign. Please select a valid sign");
                 sign=Console.ReadLine();
                 candidate=_FindCandidateBySign(sign);
@@ -85,8 +101,18 @@ namespace EVM_updated
 
             Vote voteCast = new Vote(voter.Id, candidate.Id);
             VotesList.Add(voteCast);
+            _ShowVotes();
         }
-        public void VoterMenu()
+        private void _ShowVotes()
+        {
+            // to track candidates whose votes are already shown
+            var showeCandidates = new List<int>();
+            for (int i = 0; i < CandidateList.Count; i++)
+            {
+                Console.WriteLine($"Candidate: {CandidateList[i].Name} \nVotes: {_FindCandidateVotes(CandidateList[i].Id)}");
+            }
+        }
+       /* public void VoterMenu()
         {
             Console.WriteLine("***********VOTE CASTING PROCESS***************");
             for (int i = 0; i < CandidateList.Count; i++)
@@ -96,7 +122,7 @@ namespace EVM_updated
 
             Console.WriteLine("SHOW VOTES OF CANDIDATES");
 
-        }
+        }*/
 
 
         // finds voter by CNIC in voters list
@@ -125,10 +151,20 @@ namespace EVM_updated
 
         // checks whether vote is casted by voter or not
         private bool _IsVoteCasted(int id){
-            for(int i=0;i<VotersList.Count;i++){
-                if(VotersList[i].Id==id)return true;
+            for(int i=0;i<VotesList.Count;i++){
+                if(VotesList[i].VoterId==id)return true;
             }
             return false;
+        }
+        private int _FindCandidateVotes(int candidateId)
+        {
+            int count = 0;
+
+            for (int i = 0; i < VotesList.Count; i++)
+            {
+                if (VotesList[i].CandidateId == candidateId) count++;
+            }
+            return count;
         }
     }
 }

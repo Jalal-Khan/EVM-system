@@ -7,12 +7,15 @@ namespace EVM_updated
         static void Main(string[] args)
         {
             var booth = new Booth();
+            booth.Start();
+            booth.End();
              
 
             Console.WriteLine("***********VOTING APPLICATION*******************");
             Console.WriteLine("PRESS 1 FOR \"ADD CANDIDATE\"");
-            Console.WriteLine("PRESS 2 FOR \"CAST VOTE\"");
-            
+            Console.WriteLine("PRESS 2 FOR \"ADD VOTER\"");
+            Console.WriteLine("PRESS 3 FOR \"CAST VOTE\"");
+
             Console.WriteLine("PRESS 0 FOR \"EXIT\"");
             string key = string.Empty;
 
@@ -28,12 +31,18 @@ namespace EVM_updated
                     case "1":
 
                         booth.AddCandidate();
-
+                        Console.Clear();
+                        booth.menu();
                         break;
 
                     case "2":
-                        
+                        booth.AddVoter();
                         Console.Clear();
+                        booth.menu();
+                        break;
+
+
+                        /*Console.Clear();
                         Console.WriteLine("***********VOTER INFORMATION***************");
                         booth.AddVoter();
                         Console.Clear();
@@ -55,16 +64,23 @@ namespace EVM_updated
                             case "0":
                                 break;
                         }
-                        break;
+                        break;*/
 
-          
-                    case "4":
+
+                    case "3":
+                        booth.VoteCast();
+                        Console.ReadKey();
                         Console.Clear();
-                        //menu();
+                        booth.menu();
+                        break;
+                    case "4":
+                        
+                        Console.Clear();
+                        booth.menu();
                         break;
 
                     default:
-                        Console.WriteLine(" PLEASE PRESS A VALID KEY");
+                        Console.WriteLine(">>> PLEASE PRESS A VALID KEY <<<");
                         break;
 
                 }
