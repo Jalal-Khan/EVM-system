@@ -8,7 +8,7 @@ namespace EVM_updated
 {
     class Booth
     {
-        private static int count;
+        private static int _Count;
         public int Id{get; private set;}
         List<Candidate> CandidateList = new List<Candidate>();
         List<Voter> VotersList = new List<Voter>();
@@ -76,11 +76,11 @@ namespace EVM_updated
 
             Console.WriteLine("Enter your Candidate Sign");
             var sign=Console.ReadLine();
-            Candidate candidate=_FindVoterByCnic(sign);
+            Candidate candidate=_FindCandidateBySign(sign);
             while(voter==null){
                 Console.WriteLine("Invalid Sign. Please select a valid sign");
                 sign=Console.ReadLine();
-                candidate=_FindVoterByCnic(sign);
+                candidate=_FindCandidateBySign(sign);
             }
 
             Vote voteCast = new Vote(voter.Id, candidate.Id);
@@ -112,7 +112,7 @@ namespace EVM_updated
         }
 
         // finds candidate by Sign in candidates list
-        private Voter _FindCandidateBySign(string sign){
+        private Candidate _FindCandidateBySign(string sign){
             Candidate candidate=null;
             for(int i=0;i<CandidateList.Count;i++){
                 if(CandidateList[i].Sign==sign){
